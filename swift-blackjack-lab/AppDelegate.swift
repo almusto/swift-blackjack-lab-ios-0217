@@ -13,13 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-
   let dealer = Dealer()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-      let deck = Deck()
+      let deck = dealer.deck
+
+
 
       deck.shuffle()
 
@@ -39,9 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Not enough tokens!")
       }
 
+      print(deck.description)
+
       playBlackjack(withBet: bet)
 
-
+      print(deck.description)
 
         // Do not alter
         return true  //
@@ -50,20 +53,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func playBlackjack(withBet  bet : UInt) {
 
 
-
-
-
-
-
-
     if dealer.house.blackjack {
       print(dealer.winner())
     } else {
+      print(dealer.winner())
       while dealer.winner() == "no" {
         dealer.turn(house: dealer.player)
         dealer.turn(house: dealer.house)
         }
       }
+
+    for card in dealer.house.cards {
+      print("house cards: \(card.description)")
+    }
+    for card in dealer.player.cards {
+      print("player cards: \(card.description)")
+    }
+
 
     print(dealer.winner())
 

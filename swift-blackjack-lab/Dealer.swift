@@ -42,8 +42,11 @@ class Dealer {
   }
 
   func turn(house : House) {
+    print("Can house hit? : \(house.mayHit)")
     if house.mayHit {
+      print("house has a score of: \(house.handscore)")
       if house.mustHit {
+        print("Must house hit? : \(house.mustHit)")
         house.cards.append(deck.drawCard())
       } else {
         house.stayed = true
@@ -52,9 +55,9 @@ class Dealer {
   }
 
   func winner() -> String {
-    if (player.busted == false && player.handscore > house.handscore && player.handscore > 16) || (player.cards.count == 5 && player.handscore < 22) || player.blackjack || house.busted {
+    if ((player.busted == false && player.handscore > house.handscore) || (player.cards.count == 5 && player.handscore < 22) || (player.blackjack)) && player.handscore > 16 {
       return "player"
-    } else if (house.busted == false && house.handscore > player.handscore && house.handscore > 16) || (house.handscore == player.handscore) || house.blackjack || player.busted {
+    } else if ((house.busted == false && house.handscore > player.handscore && house.handscore > 16) || (house.handscore == player.handscore) || house.blackjack || player.busted) && house.handscore > 16 {
       return "house"
     } else {
       return "no"
